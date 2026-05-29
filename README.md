@@ -1,0 +1,1 @@
+[![Screenshot]((https://github.com/D-Colak-PC/BST-Visualizer/tree/master/media/ss.png))](ss.png)
