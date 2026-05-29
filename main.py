@@ -9,7 +9,8 @@ It can also peform traversals in many different orders
 
 import pygame as pg
 import pygame_widgets as pw
-from pygame_widgets.button import ButtonArray
+from ui.traversal_buttons import TraversalButtons
+from ui.controls import NodeControls
 
 from tree import BST
 from constants import *
@@ -26,30 +27,25 @@ def main():
     pg.display.set_caption("BST Visualization")
     clock = pg.time.Clock()
 
-    button_font = pg.font.SysFont(None, BUTTON_FONT_SIZE)
-    _buttons = ButtonArray(
-        screen,
-        WIDTH - BUTTON_ARRAY_WIDTH,
-        HEIGHT - BUTTON_ARRAY_HEIGHT,
-        BUTTON_ARRAY_WIDTH,
-        BUTTON_ARRAY_HEIGHT,
-        (1, 4),
-        border=PADDING,
-        colour=(255, 0, 0),
-        fonts=(button_font, button_font, button_font, button_font),
-        radii=(5, 5, 5, 5),
-        texts=("Level Order", "Inorder", "Preorder", "Postorder"),
-        onClicks=(
-            lambda: print(f"Level Order: {bst.level_order_traversal()}"),
-            lambda: print(f"Inorder: {bst.inorder_traversal()}"),
-            lambda: print(f"Preorder: {bst.preorder_traversal()}"),
-            lambda: print(f"Postorder: {bst.postorder_traversal()}"),
-        ),
-    )
-
     bst = BST()
     bst.build_from_list(FILLED)
     print(bst)
+
+    button_font = pg.font.SysFont(None, BUTTON_FONT_SIZE)
+    traversal_buttons = TraversalButtons(
+        screen,
+        WIDTH,
+        HEIGHT,
+        button_font,
+        bst,
+    )
+    node_controls = NodeControls(
+        screen,
+        WIDTH,
+        HEIGHT,
+        button_font,
+        bst,
+    )
 
     while True:
         events = pg.event.get()
@@ -61,7 +57,7 @@ def main():
         bst.draw(screen)
         pw.update(events)
         pg.display.update()
-        clock.tick(60)
+        clock.tick(FPS)
 
 
 if __name__ == "__main__":
