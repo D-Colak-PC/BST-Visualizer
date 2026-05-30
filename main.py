@@ -56,7 +56,8 @@ def main():
         screen.fill(BLACK)
         bst.draw(screen)
         pw.update(events)
-        pg.display.update()
+        traversal_buttons.draw_output()
+        pg.display.flip()
         clock.tick(FPS)
 
 
